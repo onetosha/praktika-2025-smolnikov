@@ -114,6 +114,12 @@ body {
   object-fit: cover;
 }
 
+.card-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: auto;
+}
+
 .badge {
   position: absolute;
   top: 12px;
@@ -145,6 +151,12 @@ body {
 .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text-main); }
 .btn-danger { background: #fef2f2; color: var(--danger); border: 1px solid var(--danger); }
 
+.btn-outline.active {
+  background-color: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
 .tab-container {
   display: flex;
   gap: 10px;
@@ -170,6 +182,13 @@ body {
 .form-container {
   max-width: 500px;
   margin: 0 auto;
+}
+
+.filter-container {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 24px;
+  align-items: center;
 }
 
 .field {
@@ -200,10 +219,22 @@ input, textarea {
   cursor: pointer;
 }
 
+.checkbox-group span {
+  margin-left: 5px;
+  font-size: 0.95rem;
+  color: var(--text-main);
+}
+
 input[type="checkbox"] {
   width: 18px;
   height: 18px;
   cursor: pointer;
   accent-color: var(--primary);
   margin: 0;
+}
+
+.price-text {
+  font-weight: 700;
+  margin: 10px 0;
+  font-size: 1.1rem;
 }

@@ -35,18 +35,46 @@ const ProductsPage = () => {
   return (
     <div>
       <div className="tab-container">
-        <button className={`tab-btn ${activeTab === 'api' ? 'active' : ''}`} onClick={() => setActiveTab('api')}>API Продукты</button>
-        <button className={`tab-btn ${activeTab === 'local' ? 'active' : ''}`} onClick={() => setActiveTab('local')}>Мои Продукты ({localProducts.length})</button>
+        <button 
+          className={`tab-btn ${activeTab === 'api' ? 'active' : ''}`} 
+          onClick={() => setActiveTab('api')}
+        >
+          API Продукты
+        </button>
+        <button 
+          className={`tab-btn ${activeTab === 'local' ? 'active' : ''}`} 
+          onClick={() => setActiveTab('local')}
+        >
+          Мои Продукты ({localProducts.length})
+        </button>
       </div>
 
       {activeTab === 'api' && (
         <>
-          <div style={{ marginBottom: '20px', display: 'flex', gap: '10px' }}>
-            <button className="btn btn-outline" onClick={() => setLimit(8)}>8</button>
-            <button className="btn btn-outline" onClick={() => setLimit(16)}>16</button>
-            <button className="btn btn-outline" onClick={() => setLimit('all')}>Все</button>
+          <div className="filter-container">
+            <button 
+              className={`btn btn-outline ${limit === 8 ? 'active' : ''}`} 
+              onClick={() => setLimit(8)}
+            >
+              8
+            </button>
+            <button 
+              className={`btn btn-outline ${limit === 16 ? 'active' : ''}`} 
+              onClick={() => setLimit(16)}
+            >
+              16
+            </button>
+            <button 
+              className={`btn btn-outline ${limit === 'all' ? 'active' : ''}`} 
+              onClick={() => setLimit('all')}
+            >
+              Все
+            </button>
           </div>
-          {loading ? <p>Загрузка...</p> : (
+
+          {loading ? (
+            <p>Загрузка...</p>
+          ) : (
             <div className="product-grid">
               {apiProducts.map(p => (
                 <div key={p.id} className="card">
@@ -54,7 +82,7 @@ const ProductsPage = () => {
                     <img src={p.thumbnail} alt={p.title} />
                   </div>
                   <h3>{p.title}</h3>
-                  <p style={{ fontWeight: 'bold', margin: '10px 0' }}>${p.price}</p>
+                  <p className="price-text">${p.price}</p>
                   <Link to={`/products/${p.id}`} className="btn btn-primary">Подробнее</Link>
                 </div>
               ))}
@@ -65,12 +93,17 @@ const ProductsPage = () => {
 
       {activeTab === 'local' && (
         <>
-          <div style={{ marginBottom: '20px' }}>
+          <div className="filter-container">
             <label className="checkbox-group">
-              <input type="checkbox" checked={showPublishedOnly} onChange={e => setShowPublishedOnly(e.target.checked)} />
-              <span style={{ marginLeft: '8px' }}>Только опубликованные</span>
+              <input 
+                type="checkbox" 
+                checked={showPublishedOnly} 
+                onChange={e => setShowPublishedOnly(e.target.checked)} 
+              />
+              <span>Только опубликованные</span>
             </label>
           </div>
+          
           <div className="product-grid">
             {filteredLocal.map(p => (
               <div key={p.id} className="card">
@@ -81,9 +114,11 @@ const ProductsPage = () => {
                   <img src={p.thumbnail || 'https://via.placeholder.com/150'} alt={p.title} />
                 </div>
                 <h3>{p.title}</h3>
-                <p style={{ fontWeight: 'bold', margin: '10px 0' }}>${p.price}</p>
-                <div style={{ display: 'flex', gap: '8px', marginTop: 'auto' }}>
-                  <Link to={`/edit-product/${p.id}`} className="btn btn-outline" style={{ flex: 1 }}>Ред.</Link>
+                <p className="price-text">${p.price}</p>
+                <div className="card-actions">
+                  <Link to={`/edit-product/${p.id}`} className="btn btn-outline" style={{ flex: 1 }}>
+                    Редактировать
+                  </Link>
                   <button onClick={() => handleDeleteLocal(p.id)} className="btn btn-danger">🗑️</button>
                 </div>
               </div>

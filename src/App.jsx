@@ -5,6 +5,7 @@ import ProductDetails from './pages/ProductDetails';
 import ProductFormPage from './pages/ProductFormPage';
 import LoginPage from './pages/LoginPage';
 import ProtectedRoute from './components/ProtectedRoute';
+import PublicRoute from './components/PublicRoute';
 
 function App() {
   return (
@@ -12,7 +13,14 @@ function App() {
       <Route path="/" element={<MainLayout />}>
         <Route index element={<Navigate to="/products" replace />} />
 
-        <Route path="login" element={<LoginPage />} />
+        <Route 
+          path="login" 
+          element={
+            <PublicRoute>
+              <LoginPage />
+            </PublicRoute>
+          } 
+        />
 
         <Route
           path="products"
